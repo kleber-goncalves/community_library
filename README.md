@@ -13,4 +13,7 @@
         "dev": "nodemon index.js"
     },
 ```
-- neste caso voce so roda usando `npm run dev`
+- neste caso voce so roda usando `npm run dev`.
+
+## Zod
+- Ele é uma biblioteca famosa para validação de todos os tipos possiveis, e tendo documentação impecavel.
