@@ -58,13 +58,106 @@ function findUserByEmailRepository(email) {
     });
 }
 
+// função para encontrar um user utilizando o id
+function findUserByIdRepository(id) {
+    return new Promise((res, rej) => {
+        db.get(
+            `
+            SELECT id, username, email, avatar
+            FROM users
+            WHERE id = ?
+            `,
+            [id],
+            (err, row) => {
+                if (err) {
+                    rej(err);
+                } else {
+                    res(row);
+                }
+            },
+        );
+    });
+}
 
+// função para encontrar todos os users da tabela users
+// O 'rows' representa todas as linhas da tabela
+function findAllUserRepository() {
+    return new Promise((res, rej) => {
+        db.all(
+            `
+                SELECT id, username, email, avatar FROM users
+            `,
+            [],
+            (err, rows) => {
+                if (err) {
+                    rej(err);
+                } else {
+                    res(rows);
+                }
+            },
+        );
+    });
+}
 
+// função para atualizar um user
+function updateUserRepository(id, user) {
+    return new Promise((res, rej) => {
+        const fields = ["username", "email", "password", "avatar"];
+        let query = "UPDATE users SET";
+        const values = [];
 
+        fields.forEach((field) => {
+            if (user[field] !== undefined) {
+                query += ` ${field} = ?,`;
+                values.push(user[field]);
+            }
+        });
+
+        query = query.slice(0, -1);
+        query += " WHERE id = ?";
+        values.push(id);
+
+        console.log(`Query: ${query}`);
+        console.log(`Values: ${values}`);
+
+        db.run(query, values, (err) => {
+            if (err) {
+                rej(err);
+            } else {
+                res({ id, ...user });
+            }
+        });
+    });
+}
+
+// Função para deletar um user
+// O 'run' porque ira fazer uma alteração do banco
+async function deleteUserRepository(id) {
+    return new Promise((res, rej) => {
+        db.run(
+            `
+            DELETE FROM users
+            WHERE id = ?
+            `,
+            [id],
+            (err) => {
+                if (err) {
+                    rej(err);
+                } else {
+                    res({ message: "User deleted successfully", id });
+                }
+            },
+        );
+    });
+}
 
 // Este tipo de exportamente
 // é para exportar funções
 export default {
     createUserRepository,
     findUserByEmailRepository,
+    findUserByIdRepository,
+    findAllUserRepository,
+    updateUserRepository,
+    deleteUserRepository,
 };

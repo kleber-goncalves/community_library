@@ -20,4 +20,49 @@ async function createUserService(newUser) {
     return user;
 }
 
-export default { createUserService };
+// busca todos os users da tabela users
+// a função 'findAllUserRepository' é chamada para buscar todos os users da tabela users e retornar o resultado
+async function findAllUsersService() {
+    const users = await userRepository.findAllUserRepository();
+    return users;
+}
+
+// busca um user utilizando o id do user
+// a função 'findUserByIdRepository' é chamada para buscar um user utilizando o id do user
+async function findUserByIdService(id) {
+    const user = await userRepository.findUserByIdRepository(id);
+    if (!user) throw new Error("User not found");
+    return user;
+}
+
+// atualiza um user utilizando o id do user
+//
+async function updateUserService(newUser, userId) {
+    const user = await userRepository.findUserByIdRepository(userId);
+    if (!user) throw new Error("User not found");
+    if (newUser.password) {
+        newUser.password = await bcrypt.hash(newUser.password, 10);
+    }
+
+    const userUpdated = await userRepository.updateUserRepository(
+        userId,
+        newUser,
+    );
+    return userUpdated;
+}
+
+// deleta um user utilizando o id do user
+async function deleteUserService(userId) {
+    const user = await userRepository.findUserByIdRepository(userId);
+    if (!user) throw new Error("User not found");
+    const { message } = await userRepository.deleteUserRepository(userId);
+    return message;
+}
+
+export default {
+    createUserService,
+    findAllUsersService,
+    findUserByIdService,
+    updateUserService,
+    deleteUserService,
+};

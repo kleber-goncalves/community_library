@@ -8,4 +8,8 @@ const userSchema = z.object({
     avatar: z.string().url("Invalid URL").optional(),
 });
 
-export { userSchema };
+const userIdSchema = z.object({
+    id: z.number().int().positive("User ID is required"),
+});
+
+export { userSchema, userIdSchema };
