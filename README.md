@@ -17,3 +17,9 @@
 
 ## Zod
 - Ele é uma biblioteca famosa para validação de todos os tipos possiveis, e tendo documentação impecavel.
+
+## JWT
+- Ele é usado para autenticação criando um token para o usuario ja contendo todas as informaçoes.
+
+## dotenv
+- Ele é a biblioteca do arquivo `.env` sem ele não tem como o node.js ler o arquivo.

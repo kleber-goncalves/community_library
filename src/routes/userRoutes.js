@@ -12,6 +12,11 @@ router.post(
     userController.createUserController,
 );
 
+router.post(
+    "/users/login",
+    userController.loginUserController,
+);
+
 router.get("/users", userController.findAllUserController);
 
 // rota para buscar um user utilizando o id

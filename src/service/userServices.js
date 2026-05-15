@@ -1,4 +1,5 @@
 import userRepository from "../repositories/userRepositories.js";
+import { generateJWT } from "./authService.js";
 import bcrypt from "bcrypt";
 
 async function createUserService(newUser) {
@@ -17,7 +18,10 @@ async function createUserService(newUser) {
         password: passHash,
     });
     if (!user) throw new Error("Error creating user");
-    return user;
+
+    // gera o token com o id do user
+    const token = generateJWT(user.id);
+    return token;
 }
 
 // busca todos os users da tabela users
