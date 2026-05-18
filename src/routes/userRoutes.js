@@ -3,6 +3,7 @@ import userController from "../controller/userControllers.js";
 import { validate } from "../middlewares/validationMiddlewares.js";
 import { validadeUserId } from "../middlewares/validationMiddlewares.js";
 import { userSchema } from "../schema/userSchema.js";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
@@ -17,6 +18,8 @@ router.post(
     userController.loginUserController,
 );
 
+// todas as rotas abaixo dessa linha exigem autenticação
+router.use(authMiddleware);
 router.get("/users", userController.findAllUserController);
 
 // rota para buscar um user utilizando o id
