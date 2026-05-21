@@ -7,6 +7,7 @@ import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
+// rota para criar um user
 router.post(
     "/users",
     validate(userSchema),
@@ -20,12 +21,15 @@ router.post(
 
 // todas as rotas abaixo dessa linha exigem autenticação
 router.use(authMiddleware);
+
+// rota para buscar todos os users
 router.get("/users", userController.findAllUserController);
 
 // rota para buscar um user utilizando o id
 // a rota é do tipo ':id'
 router.get("/users/:id", validadeUserId, userController.findUserByIdController);
 
+// rota para atualizar um user
 router.patch("/users/:id", validadeUserId, userController.updateUserController);
 
 router.delete(
