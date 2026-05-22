@@ -20,12 +20,20 @@ router.post(
     bookControllers.createBookController,
 );
 
+// rota para buscar livros pelo termo de busca
+router.get("/books/search", bookControllers.searchBookController);
+
+
+// ------ ROTAS USANDO ID -----//
+
+// rota para buscar um livro utilizando o id
 router.get(
     "/books/:id",
     validadeBookId,
     bookControllers.findBookByIdController,
 );
 
+// rota para atualizar um livro
 router.patch(
     "/books/:id",
     validadeBookId,

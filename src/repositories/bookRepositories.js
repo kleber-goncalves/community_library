@@ -118,7 +118,25 @@ function deleteBookRepository(bookId) {
     });
 }
 
-
+function searchBookRepository(search) {
+    return new Promise((res, rej) => {
+        db.all(
+            `
+            SELECT * FROM books
+            WHERE title LIKE ? OR author LIKE ?
+            `,
+            // O 'search' representa o termo de busca, e '%' representa um caractere curinga que corresponde a qualquer sequência de caracteres.
+            [`%${search}%`, `%${search}%`],
+            (err, rows) => {
+                if (err) {
+                    rej(err);
+                } else {
+                    res(rows);
+                }
+            },
+        );
+    });
+}
 
 
 export default {
@@ -127,5 +145,5 @@ export default {
     findBookByIdRepository,
     updateBookRepository,
     deleteBookRepository,
-   
+    searchBookRepository,
 };

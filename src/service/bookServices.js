@@ -47,7 +47,14 @@ async function deleteBookService(bookId, userId) {
     return response;
 }
 
+async function searchBookService(search) {
+    // se o termo de busca for vazio, retorna todos os livros
+    if (!search) return await bookRepository.findAllBooksRepository();
+    // caso contrario, busca os livros pelo termo de busca
+    const books = await bookRepository.searchBookRepository(search);
 
+    return books;
+}
 
 export default {
     createBookService,
@@ -55,5 +62,5 @@ export default {
     findBookByIdService,
     updateBookService,
     deleteBookService,
-
+    searchBookService,
 };
