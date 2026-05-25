@@ -1,5 +1,6 @@
 import { userIdSchema } from "../schema/userSchema.js";
 import { bookIdSchema, bookSchema } from "../schema/bookSchema.js";
+import { loanIdSchema, loanSchema } from "../schema/loanSchema.js";
 
 const validate = (schema) => (req, res, next) => {
     const result = schema.safeParse(req.body);
@@ -49,4 +50,18 @@ const validadeBookId = (req, res, next) => {
     next();
 };
 
-export { validate, validadeUserId, validadeBookId };
+const validadeLoanId = (req, res, next) => {
+    const parsedId = parseInt(req.params.id, 10);
+
+    const result = loanIdSchema.safeParse({ loanId: parsedId });
+
+    if (!result.success) {
+        return res.status(400).json({
+            errors: result.error.flatten().fieldErrors,
+        });
+    }
+    req.params.id = result.data.loanId;
+    next();
+};
+
+export { validate, validadeUserId, validadeBookId, validadeLoanId };
