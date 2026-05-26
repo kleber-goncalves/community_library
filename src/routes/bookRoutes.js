@@ -9,41 +9,24 @@ import { bookSchema } from "../schema/bookSchema.js";
 const router = Router();
 
 // rota para buscar todos os livros
-router.get("/books", bookControllers.findAllBooksController);
+router.get("/", bookControllers.findAllBooksController);
 
 // todas as rotas abaixo dessa linha exigem autenticação
 router.use(authMiddleware);
 // rota para criar um livro
-router.post(
-    "/books",
-    validate(bookSchema),
-    bookControllers.createBookController,
-);
+router.post("/", validate(bookSchema), bookControllers.createBookController);
 
 // rota para buscar livros pelo termo de busca
-router.get("/books/search", bookControllers.searchBookController);
-
+router.get("/search", bookControllers.searchBookController);
 
 // ------ ROTAS USANDO ID -----//
 
 // rota para buscar um livro utilizando o id
-router.get(
-    "/books/:id",
-    validadeBookId,
-    bookControllers.findBookByIdController,
-);
+router.get("/:id", validadeBookId, bookControllers.findBookByIdController);
 
 // rota para atualizar um livro
-router.patch(
-    "/books/:id",
-    validadeBookId,
-    bookControllers.updateBookController,
-);
+router.patch("/:id", validadeBookId, bookControllers.updateBookController);
 
-router.delete(
-    "/books/:id",
-    validadeBookId,
-    bookControllers.deleteBookController,
-);
+router.delete("/:id", validadeBookId, bookControllers.deleteBookController);
 
 export default router;
