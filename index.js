@@ -4,6 +4,7 @@ import express from "express";
 import userRouters from "./src/routes/userRoutes.js";
 import bookRouters from "./src/routes/bookRoutes.js";
 import loanRouters from "./src/routes/loanRoutes.js";
+import "./src/service/cronService.js";
 const app = express();
 
 const PORT = process.env.PORT || 0;
