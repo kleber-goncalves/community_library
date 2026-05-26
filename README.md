@@ -66,6 +66,17 @@ EMAIL_PASS=sua_senha
 npm run dev
 ```
 
+## Testando rotas com Postman
+
+Para validar a API, usei o Postman para testar as rotas manualmente. Siga estes passos:
+
+1. Abra o Postman e crie uma nova coleção para a API.
+2. Configure a URL base da API, por exemplo `http://localhost:3000`.
+3. Adicione requisições para as rotas principais, como `GET /books`, `POST /users`, `POST /auth/login`, `POST /loans`, entre outras.
+4. Use o body em formato JSON para enviar dados em rotas `POST` e `PUT`.
+5. Para rotas protegidas, inclua no cabeçalho o `Authorization: Bearer <seu_token_jwt>`.
+6. Execute as requisições e verifique o retorno da API no painel de resposta do Postman.
+
 ## Observações
 
-Este projeto faz parte do curso da DNC e atende ao objetivo de praticar uma aplicação backend com autenticação, validação de entrada, persistência de dados e tarefas agendadas. Pode ser expandido com testes, documentação Swagger e mais recursos de segurança conforme necessário.
+Este projeto faz parte do curso da DNC e atende ao objetivo de praticar uma aplicação backend com autenticação, validação de entrada, persistência de dados e tarefas agendadas. Usei o Postman para testar as rotas durante o desenvolvimento. Pode ser expandido com testes, documentação Swagger e mais recursos de segurança conforme necessário.
